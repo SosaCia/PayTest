@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayDayResources.Test", "PayDayResources.Test\PayDayResources.Test.csproj", "{9B4D8E5F-8DB4-4085-973F-40DD3CE6BB08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B4D8E5F-8DB4-4085-973F-40DD3CE6BB08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B4D8E5F-8DB4-4085-973F-40DD3CE6BB08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B4D8E5F-8DB4-4085-973F-40DD3CE6BB08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B4D8E5F-8DB4-4085-973F-40DD3CE6BB08}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
