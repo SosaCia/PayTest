@@ -1,4 +1,5 @@
-﻿using Microsoft.Playwright.NUnit;
+﻿using Microsoft.Playwright;
+using Microsoft.Playwright.NUnit;
 
 namespace PayDayResources.Test
 {
@@ -18,7 +19,8 @@ namespace PayDayResources.Test
             await Page.FillAsync("#LoginInput_Password", "PayDay2021*");
 
             //Click en Iniciar Sesión (sin esperar nada más)
-            await Page.ClickAsync("text=Iniciar Sesión");
+            var btnLogin = Page.Locator("button", new PageLocatorOptions { HasTextString = "Iniciar Sesión" });
+            await btnLogin.ClickAsync();
 
             //Verificar la existencia de una opcion de la barra del menú que solo es visible cuando se está loggueado
             await Expect(Page.Locator("#configDropdown")).ToBeVisibleAsync();
