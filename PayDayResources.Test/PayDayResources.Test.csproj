@@ -27,9 +27,4 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
-    <Target Name="PlaywrightInstall" AfterTargets="Restore">
-	    <Exec Command="playwright.cmd install" />
-    </Target>
-
-
 </Project>
