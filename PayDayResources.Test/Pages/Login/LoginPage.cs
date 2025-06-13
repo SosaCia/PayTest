@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PayDayResources.Test.Pages
+namespace PayDayResources.Test.Pages.Login
 {
     internal class LoginPage
     {

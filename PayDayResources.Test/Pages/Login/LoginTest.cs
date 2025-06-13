@@ -1,8 +1,7 @@
 ﻿using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
-using PayDayResources.Test.Pages;
 
-namespace PayDayResources.Test
+namespace PayDayResources.Test.Pages.Login
 {
     public class LoginTest : PlaywrightTestBase
     {
