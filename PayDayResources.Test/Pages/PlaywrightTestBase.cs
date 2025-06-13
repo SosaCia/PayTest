@@ -25,16 +25,26 @@ namespace PayDayResources.Test
             });
         }
 
+        string GetProjectRoot()
+        {
+            // AppDomain.CurrentDomain.BaseDirectory -> ...\bin\Debug\net9.0\
+            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            // Sube tres carpetas para quedar en ...\PayDayResources.Test\
+            return Path.GetFullPath(Path.Combine(baseDir, "..", "..", ".."));
+        }
+
         // 2️ Se ejecuta antes de CADA test
         [SetUp]
         public async Task TestSetup()
         {
-            var recordings = Path.Combine(
-                TestContext.CurrentContext.WorkDirectory,
-                "Media", "TestRecordings"
-            );
+            // 1) Calcula el root de proyecto
+            var projectRoot = GetProjectRoot();
+
+            // 2) Carpeta donde vas a guardar tus vídeos
+            var recordings = Path.Combine(projectRoot, "TestResults", "Videos");
             Directory.CreateDirectory(recordings);
 
+            // 3) Configura el context de Playwright
             Context = await Browser.NewContextAsync(new BrowserNewContextOptions
             {
                 RecordVideoDir = recordings,
@@ -44,18 +54,26 @@ namespace PayDayResources.Test
             Page = await Context.NewPageAsync();
         }
 
+
         // 3️ Se ejecuta justo después de CADA test
         [TearDown]
         public async Task TestTearDown()
         {
+            await Task.Delay(2000);
+
             // Cierra el context para que se genere el vídeo
             await Context.CloseAsync();
 
             // Renombra el vídeo con el nombre del test
             var src = await Page.Video.PathAsync();
+
+            var projectRoot = GetProjectRoot();
+            var recordingsDir = Path.Combine(projectRoot, "TestResults", "Videos");
+
+            Directory.CreateDirectory(recordingsDir);
+
             var dest = Path.Combine(
-                TestContext.CurrentContext.WorkDirectory,
-                "Media", "TestRecordings",
+                recordingsDir,
                 $"{TestContext.CurrentContext.Test.Name}.webm"
             );
 
