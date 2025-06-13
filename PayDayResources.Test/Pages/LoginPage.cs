@@ -9,37 +9,36 @@ namespace PayDayResources.Test.Pages
 {
     internal class LoginPage
     {
-        private IPage _page;
+        private readonly IPage _page;
         public LoginPage(IPage page) => _page = page;
-        private ILocator _lnkLogin => _page.Locator("text=Login");
+
         private ILocator _txtUserName => _page.Locator("#LoginInput_Email");
         private ILocator _txtPassword => _page.Locator("#LoginInput_Password");
         private ILocator _btnLogin => _page.Locator("text=Iniciar Sesión");
+        private ILocator _errorSummary => _page.Locator("div.validation-summary-errors li");
         private ILocator _configDropdown => _page.Locator("#configDropdown");
 
-
-        public async Task ClickLogin()
+        /// <summary>
+        /// Teclea el usuario y contraseña con un delay “humano” y hace click en Iniciar Sesión.
+        /// </summary>
+        public async Task Login(string user, string pass, int delayMs = 100)
         {
-            await _page.RunAndWaitForNavigationAsync(async () =>
-            {
-                await _lnkLogin.ClickAsync();
-            }, new PageRunAndWaitForNavigationOptions
-            { 
-                UrlString = "**/Login"
-            });
-        }
-
-
-        public async Task Login(string userName, string password)
-        {
-            await _txtUserName.FillAsync(userName);
-            await _txtPassword.FillAsync(password);
+            await _txtUserName.TypeAsync(user, new LocatorTypeOptions { Delay = delayMs });
+            await _txtPassword.TypeAsync(pass, new LocatorTypeOptions { Delay = delayMs });
             await _btnLogin.ClickAsync();
         }
 
-        public async Task<bool> IsEmployeeDetailsExists() => await _configDropdown.IsVisibleAsync();
+        /// <summary>
+        /// Devuelve true si ya aparece el dropdown de configuración.
+        /// </summary>
+        public Task<bool> IsLoggedIn() =>
+            _configDropdown.IsVisibleAsync();
 
-
+        /// <summary>
+        /// Si el login falla, obtiene el texto del primer mensaje de error.
+        /// </summary>
+        public Task<string> GetErrorMessage() =>
+            _errorSummary.InnerTextAsync();
     }
 }
- 
+
